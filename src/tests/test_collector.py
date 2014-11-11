@@ -1,6 +1,13 @@
 import pytest
 import json
 
+from distutils.version import LooseVersion
+import django
+
+
+def test_django_version():
+    ver = django.get_version()
+    assert LooseVersion (ver) > LooseVersion('1.8.0')
 
 def test_collect_body(client):
     data = {'repo': 'blog'}

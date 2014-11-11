@@ -1,7 +1,7 @@
 [run]
 branch = True
 # I'm using these unchanged, as Django generated them
-omit = src/manage.py, src/github_hook_collector/wsgi.py
+omit = src/manage.py, src/github_hook_collector/wsgi.py, django/
 
 [report]
 show_missing = True

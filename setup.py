@@ -5,6 +5,7 @@ setup(
     version='0.1.0-dev',
     package_dir={'': 'src'},
     packages=['github_hook_collector', 'collector'],
-    install_requires=['django>=1.7.1'],
+    # Can't find a way to specify a dev version
+    # of Django here.
 )
 
