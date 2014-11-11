@@ -1,8 +1,6 @@
 import pytest
 import json
 
-from django.test import TestCase
-
 
 def test_collect_body(client):
     data = {'repo': 'blog'}
@@ -26,7 +24,7 @@ def test_collect_headers(client):
     assert response.content == json.dumps(xheaders)
 
 
-@pytest.mark.django_db
+# @pytest.mark.django_db
 def test_collector():
     """
     submit data as github would
