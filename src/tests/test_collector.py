@@ -37,3 +37,10 @@ def test_collector():
     submit data as github would
     ensure it's saved to db as expected
     """
+
+def test_collector_admin(client, admin_client):
+    response = client.get('/admin/collector/call/')
+    assert response.status_code == 302
+
+    response = admin_client.get('/admin/collector/call/')
+    assert response.status_code == 200
