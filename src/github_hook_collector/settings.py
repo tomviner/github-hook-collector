@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'collector',
     'django_extensions',
+    'django.contrib.postgres',
 )
 
 MIDDLEWARE_CLASSES = (
