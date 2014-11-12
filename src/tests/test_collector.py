@@ -1,7 +1,12 @@
 import pytest
 import json
 
+try:
+    from httplib import CREATED
+except ImportError:
+    from http.client import CREATED
 from distutils.version import LooseVersion
+
 import django
 from django.utils import timezone
 
@@ -11,7 +16,7 @@ from collector.models import Call
 
 def test_django_version():
     ver = django.get_version()
-    assert LooseVersion (ver) > LooseVersion('1.8.0')
+    assert LooseVersion (ver) > LooseVersion('1.8')
 
 
 @pytest.mark.django_db
