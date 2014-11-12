@@ -9,7 +9,7 @@ from distutils.version import LooseVersion
 
 import django
 from django.utils import timezone
-
+from django.db import connection
 
 from collector.models import Call
 
@@ -17,6 +17,16 @@ from collector.models import Call
 def test_django_version():
     ver = django.get_version()
     assert LooseVersion (ver) > LooseVersion('1.8')
+
+@pytest.mark.django_db
+def test_hstore_extension():
+    sql = "select count(*) from pg_available_extensions where name = %s;"
+    cursor = connection.cursor()
+
+    cursor.execute(sql, ['hstore'])
+    count = cursor.fetchone()
+
+    assert count == (1,)
 
 
 @pytest.mark.django_db

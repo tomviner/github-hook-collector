@@ -5,6 +5,7 @@ omit =
     src/manage.py, src/github_hook_collector/wsgi.py
     django/
     */tests/*
+    */migrations/*
 
 [report]
 show_missing = True
