@@ -7,6 +7,9 @@ setup(
     packages=['github_hook_collector', 'collector'],
     # Can't find a way to specify a dev version
     # of Django here.
-    install_requires=['psycopg2'],
+    install_requires=[
+        'psycopg2',
+        'django_extensions',
+    ],
 )
 

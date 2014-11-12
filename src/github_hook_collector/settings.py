@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'collector',
+    'django_extensions',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -85,6 +86,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 try:
-    from local_settings import *
+    from .local_settings import *
 except ImportError: # pragma: no cover
     pass
