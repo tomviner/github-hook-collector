@@ -2,8 +2,30 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import django.utils.timezone
-import django.contrib.postgres.fields.hstore
+
+
+from django.db.migrations.operations.base import Operation
+
+
+# From https://docs.djangoproject.com/en/dev/ref/migration-operations/#writing-your-own
+class LoadExtension(Operation):
+
+    reversible = True
+
+    def __init__(self, name):
+        self.name = name
+
+    def state_forwards(self, app_label, state):
+        pass
+
+    def database_forwards(self, app_label, schema_editor, from_state, to_state):
+        schema_editor.execute("CREATE EXTENSION IF NOT EXISTS %s" % self.name)
+
+    def database_backwards(self, app_label, schema_editor, from_state, to_state):
+        schema_editor.execute("DROP EXTENSION %s" % self.name)
+
+    def describe(self):
+        return "Creates extension %s" % self.name
 
 
 class Migration(migrations.Migration):
@@ -12,16 +34,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='Call',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('submitted_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('data', django.contrib.postgres.fields.hstore.HStoreField(default={})),
-                ('headers', django.contrib.postgres.fields.hstore.HStoreField(default={})),
-            ],
-            options={
-            },
-            bases=(models.Model,),
-        ),
+        LoadExtension('hstore'),
     ]
