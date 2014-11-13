@@ -87,6 +87,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 try:
-    from .local_settings import *
-except ImportError: # pragma: no cover
+    from .local_settings import *  # flake8: noqa
+except ImportError:  # pragma: no cover
     pass

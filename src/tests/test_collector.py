@@ -1,5 +1,4 @@
 import pytest
-import json
 
 try:
     from httplib import CREATED
@@ -16,7 +15,8 @@ from collector.models import Call
 
 def test_django_version():
     ver = django.get_version()
-    assert LooseVersion (ver) > LooseVersion('1.8')
+    assert LooseVersion(ver) > LooseVersion('1.8')
+
 
 @pytest.mark.django_db
 def test_hstore_extension():
