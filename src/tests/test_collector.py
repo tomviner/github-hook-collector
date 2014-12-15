@@ -1,16 +1,18 @@
+from distutils.version import LooseVersion
+
 import pytest
+
+import django
+from collector.models import Call
+from django.db import connection
+from django.utils import timezone
 
 try:
     from httplib import CREATED
 except ImportError:
     from http.client import CREATED
-from distutils.version import LooseVersion
 
-import django
-from django.utils import timezone
-from django.db import connection
 
-from collector.models import Call
 
 
 def test_django_version():
