@@ -69,3 +69,12 @@ def test_collector_admin(client, admin_client):
 
     response = admin_client.get('/admin/collector/call/')
     assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_transform():
+    this_year = timezone.now().year
+    Call.objects.create(headers={}, data={})
+    Call.objects.create(headers={}, data={}, submitted_at=timezone.datetime(2010, 10, 20))
+    Call.objects.create(headers={}, data={}, submitted_at=timezone.datetime(2210, 10, 20))
+    assert Call.objects.filter(submitted_at__year__gte=this_year).count() == 2
