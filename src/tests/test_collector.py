@@ -13,8 +13,6 @@ except ImportError:
     from http.client import CREATED
 
 
-
-
 def test_django_version():
     ver = django.get_version()
     assert LooseVersion(ver) > LooseVersion('1.8')
@@ -75,6 +73,8 @@ def test_collector_admin(client, admin_client):
 def test_transform():
     this_year = timezone.now().year
     Call.objects.create(headers={}, data={})
-    Call.objects.create(headers={}, data={}, submitted_at=timezone.datetime(2010, 10, 20))
-    Call.objects.create(headers={}, data={}, submitted_at=timezone.datetime(2210, 10, 20))
+    Call.objects.create(headers={}, data={},
+                        submitted_at=timezone.datetime(2010, 10, 20))
+    Call.objects.create(headers={}, data={},
+                        submitted_at=timezone.datetime(2210, 10, 20))
     assert Call.objects.filter(submitted_at__year__gte=this_year).count() == 2
