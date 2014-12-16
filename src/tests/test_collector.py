@@ -1,19 +1,21 @@
+import json
 from distutils.version import LooseVersion
-
-import pytest
-
-import django
-from collector.models import Call
-from django.db import connection
-from django.utils import timezone
-
 try:
     from httplib import CREATED
 except ImportError:
     from http.client import CREATED
 
+import pytest
+
+import django
+from django.db import connection
+from django.utils import timezone
+
+from collector.models import Call
+
 
 def test_django_version():
+    "We need the latest dev version of django"
     ver = django.get_version()
     assert LooseVersion(ver) > LooseVersion('1.8')
 
@@ -38,7 +40,6 @@ def test_collector(client):
     headers = {
         'Host': 'localhost: 4567',
         'User-Agent': 'GitHub-Hookshot/044aadd',
-        'Content-Type': 'application/json',
     }
     xheaders = {
         'X-Github-Delivery': '72d3162e-cc78-11e3-81ab-4c9367dc0958',
@@ -49,7 +50,10 @@ def test_collector(client):
 
     time_before = timezone.now()
 
-    response = client.post('/hook/', data, **headers)
+    response = client.post(
+        '/hook/', json.dumps(data),
+        content_type='application/json', **headers
+    )
     assert response.status_code == CREATED
 
     (call,) = Call.objects.all()

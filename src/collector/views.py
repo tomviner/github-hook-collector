@@ -1,3 +1,5 @@
+import json
+
 from django.http import HttpResponse
 from django.utils.decorators import method_decorator
 from django.views.generic import View
@@ -14,7 +16,8 @@ class HookView(View):
     def post(self, request):
         headers = {
             k: v for (k, v) in request.META.items()
-            if k.startswith('X')}
-        data = self.request.POST
+            if k.startswith('X')
+        }
+        data = json.load(self.request)
         Call.objects.create(headers=headers, data=data)
         return HttpResponse('', status=201)

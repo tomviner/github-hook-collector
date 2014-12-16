@@ -11,5 +11,9 @@ setup(
         'psycopg2',
         'django_extensions',
     ],
+    tests_require=[
+        'tox',
+        'pytest',
+        'requests',
+    ],
 )
-
