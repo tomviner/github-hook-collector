@@ -16,7 +16,7 @@ class HookView(View):
     def post(self, request):
         headers = {
             k: v for (k, v) in request.META.items()
-            if k.startswith('X')
+            # if k.startswith('X')
         }
         data = json.loads(self.request.body.decode('utf-8'))
         Call.objects.create(headers=headers, data=data)
