@@ -18,6 +18,6 @@ class HookView(View):
             k: v for (k, v) in request.META.items()
             if k.startswith('X')
         }
-        data = json.load(self.request)
+        data = json.loads(self.request.body.decode('utf-8'))
         Call.objects.create(headers=headers, data=data)
         return HttpResponse('', status=201)
