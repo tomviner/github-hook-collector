@@ -9,6 +9,7 @@ from .models import Call
 
 
 class HookView(View):
+
     @method_decorator(csrf_exempt)
     def dispatch(self, *args, **kwargs):
         return super(HookView, self).dispatch(*args, **kwargs)
@@ -16,6 +17,7 @@ class HookView(View):
     def post(self, request):
         headers = {
             k: v for (k, v) in request.META.items()
+            if (type(v) in (str, unicode))
             # if k.startswith('X')
         }
         data = json.loads(self.request.body.decode('utf-8'))

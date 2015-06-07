@@ -42,6 +42,8 @@ def test_collector(client):
     headers = {
         'Host': 'localhost: 4567',
         'User-Agent': 'GitHub-Hookshot/044aadd',
+        # prod Django to give plaintext errors
+        'X_REQUESTED_WITH': 'XMLHttpRequest',
     }
     xheaders = {
         'X-Github-Delivery': '72d3162e-cc78-11e3-81ab-4c9367dc0958',
@@ -58,9 +60,9 @@ def test_collector(client):
     )
     assert response.status_code == CREATED
 
-    (call,) = Call.objects.all()
+    call = Call.objects.get()
     assert call.data == data
-    assert call.headers == xheaders
+    assert all(h in call.headers for h in xheaders)
 
     time_after = timezone.now()
     # make sure current time is used

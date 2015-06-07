@@ -9,7 +9,9 @@ setup(
     # of Django here.
     install_requires=[
         'psycopg2',
+        'django',
         'django_extensions',
+        'pygments',
     ],
     tests_require=[
         'tox',
